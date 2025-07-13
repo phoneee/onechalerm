@@ -2,7 +2,7 @@
 
 An interactive data visualization documenting the enforced disappearance of Wanchalearm Satsaksit (วันเฉลิม สัตย์ศักดิ์สิทธิ์) and 8 other Thai political activists in Southeast Asia.
 
-🔗 **Live Site**: [https://[your-username].github.io/onechalerm/](https://[your-username].github.io/onechalerm/)
+🔗 **Live Site**: [https://phoneee.github.io/onechalerm/](https://phoneee.github.io/onechalerm/)
 
 ## About
 
@@ -27,7 +27,7 @@ On June 4, 2020, Wanchalearm Satsaksit was abducted in broad daylight outside hi
 
 ```bash
 # Clone the repository
-git clone https://github.com/[your-username]/onechalerm.git
+git clone https://github.com/phoneee/onechalerm.git
 cd onechalerm
 
 # Install dependencies
@@ -95,7 +95,7 @@ The site automatically deploys to GitHub Pages when you push to `main` branch.
 2. Go to Settings → Pages
 3. Under "Build and deployment", select "GitHub Actions"
 4. Push any change to trigger deployment
-5. Your site will be available at: `https://[your-username].github.io/onechalerm/`
+5. Your site will be available at: `https://phoneee.github.io/onechalerm/`
 
 ## 📝 Adding Content
 
