@@ -75,7 +75,7 @@ const Hero = () => {
                 transition={{ duration: 0.8, delay: 0.2 }}
                 className="text-primary"
               >
-                9 ชีวิต
+                การบังคับบุคคล
               </motion.span>
               <motion.span
                 initial={{ opacity: 0, x: 50 }}
@@ -83,7 +83,7 @@ const Hero = () => {
                 transition={{ duration: 0.8, delay: 0.4 }}
                 className="block md:inline"
               >
-                ที่หายไปในเงามืด
+                ให้สูญหาย
               </motion.span>
             </h1>
             
@@ -93,8 +93,8 @@ const Hero = () => {
               transition={{ duration: 0.8, delay: 0.6 }}
               className="text-lg md:text-xl mb-12 text-base-content/80 max-w-2xl mx-auto"
             >
-              เปิดเผยความจริงเบื้องหลังการบังคับบุคคลให้สูญหายของนักเคลื่อนไหวการเมืองไทย
-              ผ่านการเล่าเรื่องด้วยข้อมูล
+              ข้อมูลกรณีนักเคลื่อนไหวการเมืองไทย 9 คน
+              ที่หายตัวในประเทศเพื่อนบ้านหลังรัฐประหาร 2557
             </motion.p>
 
             <motion.div

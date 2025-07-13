@@ -14,11 +14,11 @@ const Navigation = ({ currentView, onViewChange, onNavigate }: NavigationProps) 
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const navItems: { id: ViewType; label: string; description: string; icon: string }[] = [
-    { id: 'story', label: 'เรื่องราว', description: 'เล่าเรื่องแบบ Scrollytelling', icon: '📖' },
-    { id: 'timeline', label: 'ไทม์ไลน์', description: '9 ชีวิตที่หายไป', icon: '⏰' },
-    { id: 'network', label: 'เครือข่าย', description: 'เว็บแห่งอำนาจ', icon: '🕸️' },
-    { id: 'map', label: 'แผนที่', description: 'ภูมิศาสตร์แห่งความหวาดกลัว', icon: '🗺️' },
-    { id: 'dashboard', label: 'ภาพรวม', description: 'วิเคราะห์เปรียบเทียบ', icon: '📊' },
+    { id: 'story', label: 'ข้อมูลเหตุการณ์', description: 'ลำดับเหตุการณ์', icon: '📖' },
+    { id: 'timeline', label: 'ไทม์ไลน์', description: 'เหตุการณ์ตามลำดับเวลา', icon: '⏰' },
+    { id: 'network', label: 'เครือข่าย', description: 'ความเชื่อมโยง', icon: '🕸️' },
+    { id: 'map', label: 'แผนที่', description: 'ตำแหน่งที่เกิดเหตุ', icon: '🗺️' },
+    { id: 'dashboard', label: 'ภาพรวม', description: 'สถิติและข้อมูล', icon: '📊' },
   ]
 
   // Show progress indicator when scrolling
@@ -78,7 +78,7 @@ const Navigation = ({ currentView, onViewChange, onNavigate }: NavigationProps) 
         <a className="btn btn-ghost text-xl font-display">
           <span className="text-primary">Onechalerm</span>
           <span className="divider divider-horizontal mx-0"></span>
-          <span className="text-sm opacity-70">เส้นทางสู่ความมืด</span>
+          <span className="text-sm opacity-70">การบังคับบุคคลให้สูญหาย</span>
         </a>
       </div>
       

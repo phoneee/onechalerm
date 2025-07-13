@@ -236,10 +236,10 @@ const DashboardView = ({ navigationState }: DashboardViewProps) => {
           className="text-center mb-12"
         >
           <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
-            ภาพรวม: <span className="text-primary">ความยุติธรรมที่หายไป</span>
+            การบังคับบุคคลให้สูญหาย<span className="text-primary">ในประเทศไทย</span>
           </h2>
           <p className="text-lg opacity-80 max-w-3xl mx-auto">
-            วิเคราะห์ข้อมูลการบังคับบุคคลให้สูญหายในประเทศไทย และกรณีนักเคลื่อนไหวหลังรัฐประหาร 2557
+            ข้อมูลและสถิติการบังคับบุคคลให้สูญหาย 93 กรณี ตั้งแต่ปี 2523-2567
           </p>
         </motion.div>
 
