@@ -8,8 +8,9 @@ import NetworkView from './pages/NetworkView'
 import MapView from './pages/MapView'
 import StoryView from './pages/StoryView'
 import DashboardView from './pages/DashboardView'
+import DocumentsView from './pages/DocumentsView'
 
-type ViewType = 'timeline' | 'network' | 'map' | 'story' | 'dashboard'
+type ViewType = 'overview' | 'cases' | 'timeline' | 'map' | 'documents'
 
 export interface NavigationState {
   targetId?: string
@@ -18,23 +19,23 @@ export interface NavigationState {
 }
 
 function App() {
-  const [currentView, setCurrentView] = useState<ViewType>('story')
+  const [currentView, setCurrentView] = useState<ViewType>('overview')
   const [navigationState, setNavigationState] = useState<NavigationState>({})
 
   const renderView = () => {
     switch (currentView) {
+      case 'overview':
+        return <DashboardView navigationState={navigationState} />
+      case 'cases':
+        return <StoryView />
       case 'timeline':
         return <TimelineView navigationState={navigationState} />
-      case 'network':
-        return <NetworkView />
       case 'map':
         return <MapView navigationState={navigationState} />
-      case 'story':
-        return <StoryView />
-      case 'dashboard':
-        return <DashboardView navigationState={navigationState} />
+      case 'documents':
+        return <DocumentsView />
       default:
-        return <StoryView />
+        return <DashboardView navigationState={navigationState} />
     }
   }
   
@@ -64,7 +65,7 @@ function App() {
         onNavigate={handleNavigation}
       />
       
-      {currentView === 'story' && <Hero />}
+      {currentView === 'overview' && <Hero />}
       
       <AnimatePresence mode="wait">
         <motion.main

@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 
-type ViewType = 'timeline' | 'network' | 'map' | 'story' | 'dashboard'
+type ViewType = 'overview' | 'cases' | 'timeline' | 'map' | 'documents'
 
 interface MobileNavProps {
   currentView: ViewType
@@ -9,11 +9,11 @@ interface MobileNavProps {
 
 const MobileNav = ({ currentView, onViewChange }: MobileNavProps) => {
   const navItems: { id: ViewType; label: string; icon: string }[] = [
-    { id: 'story', label: 'เรื่องราว', icon: '📖' },
-    { id: 'timeline', label: 'ไทม์ไลน์', icon: '⏰' },
+    { id: 'overview', label: 'ภาพรวม', icon: '📊' },
+    { id: 'cases', label: '9 กรณี', icon: '👥' },
+    { id: 'timeline', label: 'เหตุการณ์', icon: '⏰' },
     { id: 'map', label: 'แผนที่', icon: '🗺️' },
-    { id: 'network', label: 'เครือข่าย', icon: '🕸️' },
-    { id: 'dashboard', label: 'ภาพรวม', icon: '📊' },
+    { id: 'documents', label: 'เอกสาร', icon: '📄' },
   ]
 
   return (

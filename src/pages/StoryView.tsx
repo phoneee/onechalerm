@@ -24,58 +24,60 @@ const StoryView = () => {
 
   const sections: StorySection[] = [
     {
-      id: 'intro',
-      title: 'การบังคับบุคคลให้สูญหายครั้งล่าสุด',
-      content: '4 มิถุนายน 2563 วันเฉลิม สัตย์ศักดิ์สิทธิ์ ถูกลักพาตัวหน้าคอนโด Mekong Gardens กรุงพนมเปญ กัมพูชา เป็นกรณีล่าสุดของการบังคับบุคคลให้สูญหายที่เกิดขึ้นกับนักเคลื่อนไหวการเมืองไทยในต่างประเทศ',
-      backgroundType: 'gradient',
-      relatedArticles: ['the-abduction'],
-      relatedEvents: ['abduction']
-    },
-    {
-      id: 'the-man',
-      title: 'ประวัติผู้สูญหาย',
-      content: 'วันเฉลิม สัตย์ศักดิ์สิทธิ์ อดีตผู้ประสานงานทางการเมือง หลบหนีออกจากประเทศไทยหลังรัฐประหาร 2557 พำนักอยู่ในกัมพูชาภายใต้ชื่อ "ซก เฮง" ตามเอกสารเดินทาง มีบทบาทในการช่วยเหลือผู้ลี้ภัยการเมืองไทยคนอื่นๆ',
-      backgroundType: 'gradient',
-      relatedArticles: ['who-is-wanchalearm'],
-      relatedEvents: ['work-pheu-thai', 'flee-cambodia']
-    },
-    {
-      id: 'the-network',
-      title: 'บทบาทในชุมชนผู้ลี้ภัย',
-      content: 'วันเฉลิมทำหน้าที่ประสานงานช่วยเหลือผู้ลี้ภัยการเมืองไทยในกัมพูชา ให้คำแนะนำเรื่องที่พัก การดำรงชีพ และความปลอดภัย บทบาทนี้อาจเป็นปัจจัยที่ทำให้ถูกเลือกเป็นเป้าหมาย',
-      backgroundType: 'gradient',
-      relatedArticles: ['who-is-wanchalearm']
-    },
-    {
-      id: 'the-pattern',
-      title: 'สถิติการบังคับบุคคลให้สูญหาย',
-      content: 'ข้อมูลจาก UN Working Group: ประเทศไทยมีกรณีบังคับบุคคลให้สูญหาย 93 ราย (2523-2567) ยังไม่ได้รับการแก้ไข 77 ราย หลังปี 2557 มีนักเคลื่อนไหวไทย 9 คนหายตัวในประเทศเพื่อนบ้าน: ลาว 5 คน เวียดนาม 3 คน กัมพูชา 1 คน',
+      id: 'overview',
+      title: 'ภาพรวม 9 กรณี',
+      content: 'นักเคลื่อนไหวการเมืองไทย 9 คน หายตัวในประเทศเพื่อนบ้านระหว่างปี 2559-2563 \n\nลาว: 5 คน (2 พบศพ) \nเวียดนาม: 3 คน \nกัมพูชา: 1 คน',
       backgroundType: 'gradient',
       relatedArticles: ['transnational-repression'],
       relatedEvents: ['the-pattern']
     },
     {
-      id: 'the-river',
-      title: 'กรณีพบศพในแม่น้ำโขง',
-      content: 'ชัชชาญ บุญเฟื่อง และ ไกรเดช ทนงศึก ผู้ช่วยของ สุรชัย แซ่ด่าน ถูกพบเป็นศพในแม่น้ำโขง บริเวณนครพนม เมื่อปี 2562 ทั้งสามคนหายตัวพร้อมกันจากลาวเมื่อธันวาคม 2561',
+      id: 'case-wanchalearm',
+      title: 'กรณี 1: วันเฉลิม สัตย์ศักดิ์สิทธิ์',
+      content: 'หายตัว: 4 มิถุนายน 2563\nสถานที่: พนมเปญ, กัมพูชา\nอายุ: 37 ปี\nสถานะ: สูญหาย\n\nเหตุการณ์: ถูกลักพาตัวหน้าคอนโด Mekong Gardens ขณะคุยโทรศัพท์กับพี่สาว',
+      backgroundType: 'gradient',
+      relatedArticles: ['who-is-wanchalearm', 'the-abduction'],
+      relatedEvents: ['abduction']
+    },
+    {
+      id: 'case-laos-group',
+      title: 'กรณี 2-6: กลุ่มลาว',
+      content: 'อิทธิพล สุขแป้น (ดีเจซุนโฮ) - 22 มิ.ย. 2559\nวุฒิพงศ์ กชธรรมคุณ (โกตี๋) - 29 ก.ค. 2560\n\nกลุ่มสุรชัย (หายพร้อมกัน 12 ธ.ค. 2561):\n- สุรชัย แซ่ด่าน (ยังไม่พบ)\n- ชัชชาญ บุญเฟื่อง (พบศพในแม่น้ำโขง)\n- ไกรเดช ทนงศึก (พบศพในแม่น้ำโขง)',
+      backgroundType: 'gradient',
+      relatedArticles: ['transnational-repression'],
+      relatedEvents: ['ittipon-disappear', 'wuthipong-disappear', 'surachai-disappear']
+    },
+    {
+      id: 'case-vietnam-group',
+      title: 'กรณี 7-9: กลุ่มเวียดนาม',
+      content: 'หายพร้อมกัน 8 พฤษภาคม 2562 ที่โฮจิมินห์:\n\n1. สยาม ธีรวุฒิ - อายุ 47 ปี\n2. ชูชีพ ชีวะสุทธิ์ (ลุงสนามหลวง) - อายุ 55 ปี\n3. กฤษณะ ทัพไทย - อายุ 58 ปี\n\nทั้งหมดเป็นผู้ถูกตั้งข้อหา ม.112',
+      backgroundType: 'gradient',
+      relatedArticles: ['transnational-repression'],
+      relatedEvents: ['vietnam-disappearances']
+    },
+    {
+      id: 'mekong-river',
+      title: 'แม่น้ำโขง: พยานเงียบ',
+      content: '2 ใน 9 คนถูกพบเป็นศพในแม่น้ำโขง:\n\n- ชัชชาญ บุญเฟื่อง - พบศพในแม่น้ำโขง นครพนม\n- ไกรเดช ทนงศึก - พบศพในแม่น้ำโขง นครพนม\n\nทั้งคู่เป็นผู้ช่วยของสุรชัย แซ่ด่าน หายตัวพร้อมกัน',
       backgroundType: 'gradient',
       relatedArticles: ['transnational-repression']
     },
     {
-      id: 'the-void',
-      title: 'ผลกระทบต่อชุมชนผู้ลี้ภัย',
-      content: 'การหายตัวของวันเฉลิมส่งผลกระทบต่อผู้ลี้ภัยการเมืองไทยในกัมพูชา หลายคนย้ายที่พัก เปลี่ยนรูปแบบการสื่อสาร และเพิ่มมาตรการรักษาความปลอดภัย สะท้อนบรรยากาศความหวาดกลัวในชุมชนผู้ลี้ภัย',
+      id: 'legal-status',
+      title: 'สถานะทางกฎหมาย',
+      content: 'ข้อหาหลัก: มาตรา 112 (หมิ่นพระบรมเดชานุภาพ)\n\nการดำเนินคดี:\n- กัมพูชาปิดคดีวันเฉลิม (ก.พ. 2567)\n- ไทยอ้างข้อจำกัดอำนาจ\n- UN และองค์กรสิทธิมนุษยชนติดตาม\n\nการเรียกร้อง: ครอบครัวผู้สูญหายยังต่อสู้',
       backgroundType: 'gradient',
-      relatedArticles: ['impunity-system']
+      relatedArticles: ['impunity-system', 'sister-fight'],
+      relatedEvents: ['case-closed']
     },
     {
-      id: 'justice',
-      title: 'สถานะคดีและการเรียกร้องความยุติธรรม',
-      content: 'กุมภาพันธ์ 2567 ทางการกัมพูชาประกาศปิดคดี อ้างไม่พบหลักฐาน ฝ่ายไทยอ้างข้อจำกัดอำนาจสอบสวนนอกประเทศ สิตานันท์ สัตย์ศักดิ์สิทธิ์ พี่สาว ยื่นเอกสาร 177 หน้าต่อหน่วยงานต่างๆ UN และองค์กรสิทธิมนุษยชนยังติดตามคดี',
+      id: 'pattern-analysis',
+      title: 'รูปแบบการบังคับให้สูญหาย',
+      content: 'จุดร่วม:\n- เป็นผู้วิพากษ์วิจารณ์รัฐบาล\n- ถูกตั้งข้อหา ม.112\n- ลี้ภัยอยู่ประเทศเพื่อนบ้าน\n- ไม่มีการสอบสวนที่มีประสิทธิภาพ\n\nข้อมูล UN: ไทยมีกรณีบังคับให้สูญหาย 93 ราย (2523-2567)',
       backgroundType: 'gradient',
-      relatedArticles: ['sister-fight', 'impunity-system'],
-      relatedEvents: ['sister-testimony', 'case-closed']
-    },
+      relatedArticles: ['transnational-repression'],
+      relatedEvents: ['the-pattern']
+    }
   ]
 
   useEffect(() => {

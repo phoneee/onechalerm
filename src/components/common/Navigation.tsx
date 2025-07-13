@@ -2,7 +2,7 @@ import { useState } from 'react'
 import UnifiedSearch from './UnifiedSearch'
 import { motion } from 'framer-motion'
 
-type ViewType = 'timeline' | 'network' | 'map' | 'story' | 'dashboard'
+type ViewType = 'overview' | 'cases' | 'timeline' | 'map' | 'documents'
 
 interface NavigationProps {
   currentView: ViewType
@@ -14,11 +14,11 @@ const Navigation = ({ currentView, onViewChange, onNavigate }: NavigationProps) 
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const navItems: { id: ViewType; label: string; description: string; icon: string }[] = [
-    { id: 'story', label: 'ข้อมูลเหตุการณ์', description: 'ลำดับเหตุการณ์', icon: '📖' },
-    { id: 'timeline', label: 'ไทม์ไลน์', description: 'เหตุการณ์ตามลำดับเวลา', icon: '⏰' },
-    { id: 'network', label: 'เครือข่าย', description: 'ความเชื่อมโยง', icon: '🕸️' },
+    { id: 'overview', label: 'ภาพรวม', description: 'สถิติและข้อมูล', icon: '📊' },
+    { id: 'cases', label: 'รายละเอียด 9 กรณี', description: 'ข้อมูลผู้สูญหาย', icon: '👥' },
+    { id: 'timeline', label: 'ลำดับเหตุการณ์', description: 'เหตุการณ์ 2559-2563', icon: '⏰' },
     { id: 'map', label: 'แผนที่', description: 'ตำแหน่งที่เกิดเหตุ', icon: '🗺️' },
-    { id: 'dashboard', label: 'ภาพรวม', description: 'สถิติและข้อมูล', icon: '📊' },
+    { id: 'documents', label: 'เอกสาร/หลักฐาน', description: 'รายงานและแหล่งข้อมูล', icon: '📄' },
   ]
 
   // Show progress indicator when scrolling
