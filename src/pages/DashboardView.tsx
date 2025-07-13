@@ -19,6 +19,7 @@ const DashboardView = ({ navigationState }: DashboardViewProps) => {
   const timelineChartRef = useRef<SVGSVGElement>(null)
   const [selectedArticle, setSelectedArticle] = useState<string | null>(null)
   const [selectedTab, setSelectedTab] = useState<'overview' | 'articles' | 'media' | 'facts'>('overview')
+  const [showAllArticles, setShowAllArticles] = useState(false)
   
   // Handle navigation from search
   useEffect(() => {
@@ -329,9 +330,20 @@ const DashboardView = ({ navigationState }: DashboardViewProps) => {
           transition={{ duration: 0.6, delay: 0.7 }}
           className="mt-16"
         >
-          <h3 className="text-2xl font-display font-bold mb-8">บทความและการวิเคราะห์</h3>
+          <div className="flex justify-between items-center mb-8">
+            <h3 className="text-2xl font-display font-bold">บทความและการวิเคราะห์</h3>
+            <button 
+              onClick={() => setShowAllArticles(!showAllArticles)}
+              className="btn btn-sm btn-ghost gap-2"
+            >
+              {showAllArticles ? 'ดูน้อยลง' : 'ดูทั้งหมด'}
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={showAllArticles ? "M6 18L18 6M6 6l12 12" : "M9 5l7 7-7 7"} />
+              </svg>
+            </button>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {articles.slice(0, 6).map((article, index) => (
+            {(showAllArticles ? articles : articles.slice(0, 6)).map((article, index) => (
               <motion.div
                 key={article.id}
                 initial={{ opacity: 0, y: 20 }}
@@ -361,19 +373,48 @@ const DashboardView = ({ navigationState }: DashboardViewProps) => {
                 เสียงของคุณมีความหมาย ร่วมเป็นส่วนหนึ่งในการเรียกร้องความยุติธรรมให้กับผู้สูญหายและครอบครัว
               </p>
               <div className="flex flex-wrap gap-4 justify-center">
-                <button className="btn btn-primary">
+                <a 
+                  href="https://www.change.org/search?q=wanchalearm" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="btn btn-primary"
+                >
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                   </svg>
                   ลงชื่อเรียกร้อง
-                </button>
-                <button className="btn btn-secondary">
+                </a>
+                <button 
+                  onClick={async () => {
+                    if (navigator.share) {
+                      try {
+                        await navigator.share({
+                          title: 'Onechalerm - เส้นทางสู่ความมืด',
+                          text: 'ร่วมเรียกร้องความยุติธรรมให้กับวันเฉลิมและนักเคลื่อนไหว 9 คนที่หายตัว',
+                          url: window.location.href
+                        })
+                      } catch (err) {
+                        console.log('Share cancelled')
+                      }
+                    } else {
+                      navigator.clipboard.writeText(window.location.href)
+                      alert('คัดลอกลิงก์แล้ว')
+                    }
+                  }}
+                  className="btn btn-secondary"
+                >
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m9.032 4.026a9.001 9.001 0 010-5.368m0 5.368a9.003 9.003 0 01-9.032-4.026m0 0A9.003 9.003 0 018.684 6.316m0 0a3 3 0 110 2.684m0-2.684a9.001 9.001 0 019.032-4.026m0 0a9.003 9.003 0 00-9.032 4.026" />
                   </svg>
                   แชร์เรื่องราว
                 </button>
-                <button className="btn btn-outline">
+                <button 
+                  onClick={() => {
+                    // เลื่อนไปยังบทความหลัก
+                    setSelectedArticle('prachatai-investigation')
+                  }}
+                  className="btn btn-outline"
+                >
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>

@@ -225,90 +225,88 @@ const MapView = ({ navigationState }: MapViewProps) => {
           }
         })
 
-        // Add Mekong River highlight with more accurate path
+        // First, highlight all water features
+        map.current.setPaintProperty('water', 'fill-color', '#1e3a5f')
+        
+        // Add layer to highlight Mekong River specifically using Mapbox water data
         map.current.addLayer({
-          id: 'mekong-river',
-          type: 'line',
+          id: 'mekong-highlight',
+          type: 'fill',
           source: {
-            type: 'geojson',
-            data: {
-              type: 'FeatureCollection',
-              features: [{
-                type: 'Feature',
-                properties: { name: 'Mekong River' },
-                geometry: {
-                  type: 'LineString',
-                  coordinates: [
-                    // Upper Mekong in Laos
-                    [102.14, 22.0],
-                    [102.18, 21.5],
-                    [102.6, 20.5],
-                    [102.22, 20.0],
-                    [102.6, 19.5],
-                    [102.33, 19.0],
-                    [102.6, 18.5],
-                    [103.2, 18.3],
-                    [103.8, 18.0],
-                    [104.2, 17.8],
-                    [104.7833, 17.4167], // Nakhon Phanom - where bodies were found
-                    [105.0, 17.0],
-                    [105.2, 16.5],
-                    [105.3, 16.0],
-                    [105.5, 15.5],
-                    [105.6, 15.0],
-                    [105.3, 14.5],
-                    [105.2, 14.0],
-                    [105.0, 13.5],
-                    [104.95, 13.0],
-                    [104.9, 12.5],
-                    [104.9282, 11.5564], // Phnom Penh - Wanchalearm location
-                    [105.0, 11.0],
-                    [105.3, 10.5],
-                    [105.8, 10.2],
-                    [106.2, 10.0] // Mekong Delta
-                  ]
-                }
-              }]
-            }
+            type: 'vector',
+            url: 'mapbox://mapbox.mapbox-streets-v8'
           },
+          'source-layer': 'water',
+          filter: [
+            'all',
+            ['==', ['get', 'class'], 'river'],
+            ['in', 'Mekong', ['get', 'name']]
+          ],
           paint: {
-            'line-color': '#60a5fa',
-            'line-width': [
+            'fill-color': '#60a5fa',
+            'fill-opacity': 0.6
+          }
+        })
+        
+        // Add enhanced water layer for all major rivers in the region
+        map.current.addLayer({
+          id: 'water-highlight',
+          type: 'fill',
+          source: {
+            type: 'vector',
+            url: 'mapbox://mapbox.mapbox-streets-v8'
+          },
+          'source-layer': 'water',
+          filter: ['==', ['get', 'class'], 'river'],
+          paint: {
+            'fill-color': '#3b82f6',
+            'fill-opacity': [
               'interpolate',
               ['linear'],
               ['zoom'],
-              4, 4,
-              6, 6,
-              8, 8
-            ],
-            'line-opacity': 0.7,
-            'line-blur': 0.5
+              4, 0.3,
+              6, 0.5,
+              8, 0.7
+            ]
+          }
+        })
+        
+        // Add water labels for major rivers
+        map.current.addLayer({
+          id: 'water-labels',
+          type: 'symbol',
+          source: {
+            type: 'vector',
+            url: 'mapbox://mapbox.mapbox-streets-v8'
+          },
+          'source-layer': 'water',
+          filter: [
+            'all',
+            ['==', ['get', 'class'], 'river'],
+            ['in', 'Mekong', ['get', 'name']]
+          ],
+          layout: {
+            'text-field': ['แม่น้ำโขง'],
+            'text-font': ['DIN Pro Medium', 'Arial Unicode MS Regular'],
+            'text-size': 16,
+            'text-transform': 'uppercase',
+            'text-letter-spacing': 0.3,
+            'symbol-placement': 'line',
+            'text-rotation-alignment': 'map',
+            'text-allow-overlap': false,
+            'text-padding': 10
+          },
+          paint: {
+            'text-color': '#93c5fd',
+            'text-halo-color': '#1e293b',
+            'text-halo-width': 3,
+            'text-opacity': 0.9
           }
         })
 
-        // Add glow effect for Mekong River
+        // Add specific Mekong label at key location
         map.current.addLayer({
-          id: 'mekong-river-glow',
-          type: 'line',
-          source: 'mekong-river',
-          paint: {
-            'line-color': '#3b82f6',
-            'line-width': [
-              'interpolate',
-              ['linear'],
-              ['zoom'],
-              4, 8,
-              6, 12,
-              8, 16
-            ],
-            'line-opacity': 0.3,
-            'line-blur': 3
-          }
-        }, 'mekong-river')
-
-        // Add river label
-        map.current.addLayer({
-          id: 'mekong-label',
+          id: 'mekong-label-key',
           type: 'symbol',
           source: {
             type: 'geojson',
@@ -316,26 +314,30 @@ const MapView = ({ navigationState }: MapViewProps) => {
               type: 'FeatureCollection',
               features: [{
                 type: 'Feature',
-                properties: { name: 'แม่น้ำโขง' },
+                properties: { name: 'แม่น้ำโขง (Mekong River)' },
                 geometry: {
                   type: 'Point',
-                  coordinates: [104.7833, 17.4167]
+                  coordinates: [104.7833, 16.9] // Slightly below markers to avoid overlap
                 }
               }]
             }
           },
           layout: {
             'text-field': ['get', 'name'],
-            'text-font': ['DIN Pro Medium', 'Arial Unicode MS Regular'],
-            'text-size': 14,
-            'text-transform': 'uppercase',
-            'text-letter-spacing': 0.2,
+            'text-font': ['DIN Pro Bold', 'Arial Unicode MS Bold'],
+            'text-size': 18,
+            'text-anchor': 'center',
+            'text-offset': [0, 0],
+            'text-allow-overlap': false,
+            'text-ignore-placement': false
           },
           paint: {
             'text-color': '#60a5fa',
-            'text-halo-color': '#1e293b',
-            'text-halo-width': 2,
-          }
+            'text-halo-color': '#0f172a',
+            'text-halo-width': 4,
+            'text-opacity': 1
+          },
+          minzoom: 4
         })
 
         // Add country borders
