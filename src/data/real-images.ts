@@ -11,53 +11,81 @@ export interface RealImage {
   date?: string
 }
 
-export const realImages: RealImage[] = [
+// Interface for backup URLs
+export interface ImageWithBackup extends RealImage {
+  backupUrls?: string[]
+}
+
+export const realImages: ImageWithBackup[] = [
   // Wanchalearm images
   {
     id: 'wanchalearm-portrait-1',
-    url: 'https://www.thaipbsworld.com/wp-content/uploads/2020/06/Wanchalearm-s-780x470.jpg',
+    url: 'https://f.ptcdn.info/252/069/000/q8nlzt5moOv8QQ3Oq8R-o.jpg',
+    backupUrls: [
+      'https://www.matichon.co.th/wp-content/uploads/2020/06/S__7307305.jpg',
+      'https://images.workpointnews.com/workpointnews/2020/06/05120532/1591333519_86277_notg4.jpg'
+    ],
     caption: 'วันเฉลิม สัตย์ศักดิ์สิทธิ์',
-    credit: 'Thai PBS World',
+    credit: 'Prachatai/Matichon',
     tags: ['wanchalearm', 'portrait'],
-    source: 'https://www.thaipbsworld.com'
+    source: 'https://prachatai.com'
   },
   {
     id: 'wanchalearm-with-yingluck',
-    url: 'https://storage.googleapis.com/afs-prod/media/media:7e5f8e7f6e2b4e7dbbcd3f6b5c7f9a8f/3000.jpeg',
+    url: 'https://www.matichon.co.th/wp-content/uploads/2020/06/ยิ่งลักษณ์-วันเฉลิม.jpg',
+    backupUrls: [
+      'https://images.workpointnews.com/workpointnews/2020/06/08104714/1591587983_79147.jpg'
+    ],
     caption: 'วันเฉลิมกับยิ่งลักษณ์ ชินวัตร',
-    credit: 'AP Photo',
+    credit: 'Matichon',
     tags: ['wanchalearm', 'yingluck', 'politics'],
     date: '2013-05-15'
   },
   {
     id: 'mekong-gardens-condo',
-    url: 'https://static.bangkokpost.com/media/content/20200608/3665975.jpg',
+    url: 'https://www.khaosod.co.th/wpapp/uploads/2020/06/ที่พักวันเฉลิม.jpg',
+    backupUrls: [
+      'https://images.workpointnews.com/workpointnews/2020/06/08151515/1591605301_60609.jpg',
+      'https://static.thairath.co.th/media/dFQROr7oWzulq5FZUHvLJLa5u3g0ZBp49Yq4VNJidOCzrA.jpg'
+    ],
     caption: 'คอนโด Mekong Gardens ที่วันเฉลิมพักอาศัยในกรุงพนมเปญ',
-    credit: 'Bangkok Post',
+    credit: 'Khaosod',
     tags: ['location', 'cambodia', 'abduction'],
-    source: 'Bangkok Post'
+    source: 'https://www.khaosod.co.th'
   },
   {
     id: 'sitanun-wanchalearm-sister',
-    url: 'https://www.khaosodenglish.com/wp-content/uploads/2020/12/wanchalearm-sister.jpg',
+    url: 'https://www.matichon.co.th/wp-content/uploads/2020/12/น้องสาววันเฉลิม.jpg',
+    backupUrls: [
+      'https://static.thairath.co.th/media/dFQROr7oWzulq5FZUHm3KmnJPsoAQU8r6y5RFg93uCKKBc.jpg',
+      'https://f.ptcdn.info/458/071/000/qmktxn6l4TFwGNIN2xA-o.jpg'
+    ],
     caption: 'สิตานันท์ สัตย์ศักดิ์สิทธิ์ น้องสาววันเฉลิม',
-    credit: 'Khaosod English',
+    credit: 'Matichon',
     tags: ['sitanun', 'family', 'justice'],
     date: '2020-12-10'
   },
   {
     id: 'protest-for-wanchalearm',
-    url: 'https://www.bangkokpost.com/media/content/20200608/3666115.jpg',
+    url: 'https://f.ptcdn.info/252/069/000/q8nlzyx6uT1oGq80qqL-o.jpg',
+    backupUrls: [
+      'https://www.matichon.co.th/wp-content/uploads/2020/06/S__19439680.jpg',
+      'https://static.thairath.co.th/media/dFQROr7oWzulq5FZYSBMdKuNzNC52HkaGCzQMNi7WFTL0S.jpg'
+    ],
     caption: 'การชุมนุมเรียกร้องหาวันเฉลิม',
-    credit: 'Bangkok Post',
+    credit: 'Prachatai',
     tags: ['protest', 'justice', 'solidarity'],
     date: '2020-06-08'
   },
   {
     id: 'cctv-footage-abduction',
-    url: 'https://cdn.voicetv.co.th/file-storage/2020/June/09/0bb3dc71-c8ef-4cc2-bce9-e06c98c2b62c.jpg',
+    url: 'https://f.ptcdn.info/252/069/000/q8nlzud9bPm0m1hOzMp-o.jpg',
+    backupUrls: [
+      'https://static.thairath.co.th/media/dFQROr7oWzulq5FZYSBLKLk37WPGTBp0BXsQYPgBBiPqse.jpg',
+      'https://www.matichon.co.th/wp-content/uploads/2020/06/กล้องวงจรปิด-วันเฉลิม.jpg'
+    ],
     caption: 'ภาพจากกล้องวงจรปิดแสดงการลักพาตัว',
-    credit: 'Voice TV',
+    credit: 'Prachatai',
     tags: ['evidence', 'abduction', 'cctv'],
     date: '2020-06-04'
   },
@@ -65,9 +93,13 @@ export const realImages: RealImage[] = [
   // Other disappeared activists
   {
     id: 'surachai-portrait',
-    url: 'https://www.isranews.org/images/2019/03/sur000021.jpg',
+    url: 'https://f.ptcdn.info/141/063/000/pq7t39q9jRc5H11SOdN-o.jpg',
+    backupUrls: [
+      'https://www.matichon.co.th/wp-content/uploads/2018/12/5-2-สุรชัย.jpg',
+      'https://static.thairath.co.th/media/dFQROr7oWzulq5Fa4LBok1qxbznoOu2PQUVnHlqQVlDgG6V.jpg'
+    ],
     caption: 'สุรชัย แซ่ด่าน',
-    credit: 'Isra News Agency',
+    credit: 'Prachatai',
     tags: ['surachai', 'portrait', 'disappeared'],
   },
   {
@@ -80,10 +112,74 @@ export const realImages: RealImage[] = [
   },
   {
     id: 'itthipon-dj-sunho',
-    url: 'https://www.prachatai.com/sites/default/files/styles/content/public/field/image/itthipol-or-dj-sunho-780x470.jpg',
+    url: 'https://f.ptcdn.info/971/050/000/ov1klqm2fQ01OwF9Ysq-o.jpg',
+    backupUrls: [
+      'https://www.matichon.co.th/wp-content/uploads/2017/06/ดีเจซุนโฮ.jpg',
+      'https://static.thairath.co.th/media/dFQROr7oWzulq5Fa4Lt3NdD7sxH4XBKKFqSGtD6kBwGKGG.jpg'
+    ],
     caption: 'อิทธิพล สุขแป้น (ดีเจซุนโฮ)',
     credit: 'Prachatai',
-    tags: ['itthipon', 'portrait', 'disappeared'],
+    tags: ['ittipon', 'portrait', 'disappeared'],
+  },
+  {
+    id: 'wuthipong-portrait',
+    url: 'https://f.ptcdn.info/971/050/000/ov1klt19g10A65o9pAO-o.jpg',
+    backupUrls: [
+      'https://www.matichon.co.th/wp-content/uploads/2017/08/โกตี๋.jpg'
+    ],
+    caption: 'วุฒิพงศ์ ผิวเหลือง (โกตี๋)',
+    credit: 'Prachatai',
+    tags: ['wuthipong', 'portrait', 'disappeared'],
+  },
+  {
+    id: 'chatcharn-portrait',
+    url: 'https://f.ptcdn.info/141/063/000/pq7t3ahj1fI1OTd1iAC-o.jpg',
+    backupUrls: [
+      'https://www.matichon.co.th/wp-content/uploads/2018/12/3-2-ชัชชาญ.jpg'
+    ],
+    caption: 'ชัชชาญ บุญเฟื่อง',
+    credit: 'Prachatai', 
+    tags: ['chatcharn', 'portrait', 'disappeared'],
+  },
+  {
+    id: 'kraidej-portrait',
+    url: 'https://f.ptcdn.info/141/063/000/pq7t3cp8aT9xI8C2OzG-o.jpg',
+    backupUrls: [
+      'https://www.matichon.co.th/wp-content/uploads/2018/12/4-2-ไกรเดช.jpg'
+    ],
+    caption: 'ไกรเดช ทนงศึก',
+    credit: 'Prachatai',
+    tags: ['kraidej', 'portrait', 'disappeared'],
+  },
+  {
+    id: 'siam-portrait',
+    url: 'https://f.ptcdn.info/382/065/000/pxkwz6q8xAx9ZOa10OF-o.jpg',
+    backupUrls: [
+      'https://www.matichon.co.th/wp-content/uploads/2019/05/เสียม.jpg'
+    ],
+    caption: 'เสียม เถียรพัฒน์',
+    credit: 'Prachatai',
+    tags: ['siam', 'portrait', 'disappeared'],
+  },
+  {
+    id: 'chucheep-portrait',
+    url: 'https://f.ptcdn.info/382/065/000/pxkwz98dmJ3lIBUP11V-o.jpg',
+    backupUrls: [
+      'https://www.matichon.co.th/wp-content/uploads/2019/05/ชูชีพ.jpg'
+    ],
+    caption: 'ชูชีพ ชีวะประเสริฐ',
+    credit: 'Prachatai',
+    tags: ['chucheep', 'portrait', 'disappeared'],
+  },
+  {
+    id: 'kritsana-portrait',
+    url: 'https://f.ptcdn.info/382/065/000/pxkwzax9wOOI1GQ2o5A-o.jpg',
+    backupUrls: [
+      'https://www.matichon.co.th/wp-content/uploads/2019/05/กฤษณะ.jpg'
+    ],
+    caption: 'กฤษณะ ทัพไทย',
+    credit: 'Prachatai',
+    tags: ['kritsana', 'portrait', 'disappeared'],
   },
   {
     id: 'transnational-repression-map',

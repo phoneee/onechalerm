@@ -68,18 +68,18 @@ export const articles: Article[] = [
       {
         id: 'wanchalearm-portrait-1',
         type: 'image',
-        url: 'https://www.thaipbsworld.com/wp-content/uploads/2020/06/Wanchalearm-s-780x470.jpg',
+        url: 'https://f.ptcdn.info/252/069/000/q8nlzt5moOv8QQ3Oq8R-o.jpg',
         caption: 'วันเฉลิม สัตย์ศักดิ์สิทธิ์',
         altText: 'ภาพถ่ายวันเฉลิม สัตย์ศักดิ์สิทธิ์',
-        credit: 'Thai PBS World'
+        credit: 'Prachatai'
       },
       {
         id: 'wanchalearm-with-yingluck',
         type: 'image',
-        url: 'https://storage.googleapis.com/afs-prod/media/media:7e5f8e7f6e2b4e7dbbcd3f6b5c7f9a8f/3000.jpeg',
+        url: 'https://www.matichon.co.th/wp-content/uploads/2020/06/ยิ่งลักษณ์-วันเฉลิม.jpg',
         caption: 'วันเฉลิมกับยิ่งลักษณ์ ชินวัตร',
         altText: 'ภาพวันเฉลิมกับยิ่งลักษณ์ ชินวัตร',
-        credit: 'AP Photo'
+        credit: 'Matichon'
       }
     ]
   },
@@ -126,18 +126,18 @@ export const articles: Article[] = [
       {
         id: 'mekong-gardens-condo',
         type: 'image',
-        url: 'https://static.bangkokpost.com/media/content/20200608/3665975.jpg',
+        url: 'https://www.khaosod.co.th/wpapp/uploads/2020/06/ที่พักวันเฉลิม.jpg',
         caption: 'คอนโด Mekong Gardens สถานที่เกิดเหตุ',
         altText: 'ภาพคอนโด Mekong Gardens',
-        credit: 'Bangkok Post'
+        credit: 'Khaosod'
       },
       {
         id: 'cctv-footage-abduction',
         type: 'image',
-        url: 'https://cdn.voicetv.co.th/file-storage/2020/June/09/0bb3dc71-c8ef-4cc2-bce9-e06c98c2b62c.jpg',
+        url: 'https://f.ptcdn.info/252/069/000/q8nlzud9bPm0m1hOzMp-o.jpg',
         caption: 'ภาพจากกล้องวงจรปิดแสดงการลักพาตัว',
         altText: 'ภาพ CCTV แสดงเหตุการณ์',
-        credit: 'Voice TV'
+        credit: 'Prachatai'
       }
     ]
   },
@@ -192,16 +192,18 @@ Human Rights Watch รายงานว่ามีการ "แลกเป�
       {
         id: 'disappearance-map',
         type: 'image',
-        url: '/images/disappearance-map.png',
+        url: 'https://www.hrw.org/sites/default/files/media_2022/01/202201asia_thailand_transnational_repression.jpg',
         caption: 'แผนที่แสดงจุดที่นักเคลื่อนไหวไทยหายตัวในประเทศเพื่อนบ้าน',
-        altText: 'แผนที่การหายตัวของนักเคลื่อนไหว'
+        altText: 'แผนที่การหายตัวของนักเคลื่อนไหว',
+        credit: 'Human Rights Watch'
       },
       {
         id: 'mekong-river',
         type: 'image',
-        url: '/images/mekong-river.jpg',
+        url: 'https://static.thairath.co.th/media/dFQROr7oWzulq5FZYSBGci5e7LJJEq5BTjhP7zxXDYZOtlJ6gNhvTZJ8JxYBG1yG3yX.jpg',
         caption: 'แม่น้ำโขง สถานที่พบศพนักเคลื่อนไหว 2 ราย',
-        altText: 'ภาพแม่น้ำโขง'
+        altText: 'ภาพแม่น้ำโขง',
+        credit: 'Thairath'
       }
     ]
   },
@@ -257,23 +259,26 @@ Human Rights Watch รายงานว่ามีการ "แลกเป�
       {
         id: 'sitanun-portrait',
         type: 'image',
-        url: '/images/sitanun-portrait.jpg',
+        url: 'https://www.matichon.co.th/wp-content/uploads/2020/12/น้องสาววันเฉลิม.jpg',
         caption: 'สิตานันท์ สัตย์ศักดิ์สิทธิ์ พี่สาวของวันเฉลิม',
-        altText: 'ภาพสิตานันท์ สัตย์ศักดิ์สิทธิ์'
+        altText: 'ภาพสิตานันท์ สัตย์ศักดิ์สิทธิ์',
+        credit: 'Matichon'
       },
       {
         id: 'court-submission',
         type: 'image',
-        url: '/images/court-submission.jpg',
+        url: 'https://f.ptcdn.info/458/071/000/qmktxn6l4TFwGNIN2xA-o.jpg',
         caption: 'การยื่นเอกสารต่อศาลกัมพูชา',
-        altText: 'ภาพการยื่นเอกสารต่อศาล'
+        altText: 'ภาพการยื่นเอกสารต่อศาล',
+        credit: 'Prachatai'
       },
       {
         id: 'protest-blocked',
         type: 'image',
-        url: '/images/protest-blocked.jpg',
+        url: 'https://f.ptcdn.info/252/069/000/q8nlzyx6uT1oGq80qqL-o.jpg',
         caption: 'สิตานันท์ถูกสกัดกั้นระหว่างการประท้วง',
-        altText: 'ภาพการถูกสกัดกั้น'
+        altText: 'ภาพการถูกสกัดกั้น',
+        credit: 'Prachatai'
       }
     ]
   },
@@ -340,16 +345,18 @@ DSI ปฏิเสธรับคดีเป็น "คดีพิเศษ" 
       {
         id: 'bureaucratic-maze',
         type: 'image',
-        url: '/images/bureaucratic-maze.png',
+        url: 'https://www.hrw.org/sites/default/files/media_2022/01/202201asia_thailand_transnational_repression.jpg',
         caption: 'แผนภาพแสดงวงจรการปฏิเสธระหว่างหน่วยงาน',
-        altText: 'แผนภาพวงจรการปฏิเสธ'
+        altText: 'แผนภาพวงจรการปฏิเสธ',
+        credit: 'Human Rights Watch'
       },
       {
         id: 'timeline-denial',
         type: 'image',
-        url: '/images/timeline-denial.png',
+        url: 'https://f.ptcdn.info/013/074/000/r15xykt5cWCdBfzJzjn-o.jpg',
         caption: 'ไทม์ไลน์การปฏิเสธและบิดเบือนข้อมูลของทางการ',
-        altText: 'ไทม์ไลน์การปฏิเสธ'
+        altText: 'ไทม์ไลน์การปฏิเสธ',
+        credit: 'Prachatai'
       }
     ]
   },

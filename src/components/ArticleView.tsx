@@ -3,6 +3,7 @@ import { Article } from '@/data/articles'
 import { format } from 'date-fns'
 import { th } from 'date-fns/locale'
 import ReactMarkdown from 'react-markdown'
+import ImageWithFallback from '@/components/common/ImageWithFallback'
 
 interface ArticleViewProps {
   article: Article
@@ -128,10 +129,15 @@ const ArticleView = ({ article, onClose }: ArticleViewProps) => {
                       {asset.type === 'image' && (
                         <>
                           <figure>
-                            <img
+                            <img 
                               src={asset.url}
-                              alt={asset.altText || asset.caption}
+                              alt={asset.altText || asset.caption || ''}
                               className="w-full h-64 object-cover"
+                              onError={(e) => {
+                                const target = e.target as HTMLImageElement;
+                                target.onerror = null;
+                                target.src = 'https://via.placeholder.com/800x400/1a1a1a/666666?text=Image+Not+Available';
+                              }}
                             />
                           </figure>
                           {asset.caption && (

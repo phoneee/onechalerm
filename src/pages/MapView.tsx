@@ -6,10 +6,12 @@ import { getReferencesByDisappearanceCase } from '@/data/cross-references'
 import { getArticleById } from '@/data/articles'
 import ArticleView from '@/components/ArticleView'
 import { getImagesByPerson, realImages } from '@/data/real-images'
+import ImageWithFallback from '@/components/common/ImageWithFallback'
 import type { NavigationState } from '@/App'
+import type { ImageWithBackup } from '@/data/real-images'
 
-// You'll need to add your Mapbox token here
-mapboxgl.accessToken = 'pk.eyJ1IjoicGhvbmVlZWlpIiwiYSI6ImNqc3cwcWkyeDBhNHQ0M29kOHFqaWNobmkifQ.pHS6CrjZkbo6DZuY55tdKw'
+// Mapbox token from environment variable
+mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN || 'pk.eyJ1IjoicGhvbmVlZWlpIiwiYSI6ImNqc3cwcWkyeDBhNHQ0M29kOHFqaWNobmkifQ.pHS6CrjZkbo6DZuY55tdKw'
 
 interface MapViewProps {
   navigationState?: NavigationState
@@ -131,15 +133,22 @@ const MapView = ({ navigationState }: MapViewProps) => {
           const uniqueArticleIds = [...new Set(articleIds)]
           const personImages = getImagesByPerson(person.id)
           const primaryImage = personImages.find(img => img.tags.includes('portrait')) || personImages[0]
+          const primaryImageWithBackup = primaryImage as ImageWithBackup | undefined
           
           // Create custom marker element
           const el = document.createElement('div')
           el.className = 'custom-marker'
+          // Create React root for marker to use ImageWithFallback
+          const markerContent = document.createElement('div')
+          el.appendChild(markerContent)
+          
+          // Simple HTML for now - we'll update article images separately
           el.innerHTML = `
             <div class="relative cursor-pointer transform transition-transform hover:scale-110">
               <div class="w-12 h-12 rounded-full border-2 ${person.status === 'found_dead' ? 'border-red-500' : 'border-yellow-500'} overflow-hidden shadow-lg">
                 ${primaryImage ? 
-                  `<img src="${primaryImage.url}" alt="${person.name}" class="w-full h-full object-cover" />` : 
+                  `<img src="${primaryImage.url}" alt="${person.name}" class="w-full h-full object-cover" 
+                    onerror="this.onerror=null; this.src='${primaryImageWithBackup?.backupUrls?.[0] || 'https://via.placeholder.com/48x48/666/fff?text=' + person.name.charAt(0)}'" />` : 
                   `<div class="w-full h-full ${person.status === 'found_dead' ? 'bg-red-500' : 'bg-yellow-500'} flex items-center justify-center text-white font-bold">
                     ${person.name.charAt(0)}
                   </div>`
@@ -154,7 +163,8 @@ const MapView = ({ navigationState }: MapViewProps) => {
             <div class="p-4 max-w-sm">
               <div class="flex items-start gap-3 mb-3">
                 ${primaryImage ? 
-                  `<img src="${primaryImage.url}" alt="${person.name}" class="w-16 h-16 rounded-full object-cover" />` : 
+                  `<img src="${primaryImage.url}" alt="${person.name}" class="w-16 h-16 rounded-full object-cover"
+                    onerror="this.onerror=null; this.src='${primaryImageWithBackup?.backupUrls?.[0] || 'https://via.placeholder.com/64x64/666/fff?text=' + person.name.charAt(0)}'" />` : 
                   `<div class="w-16 h-16 rounded-full ${person.status === 'found_dead' ? 'bg-red-500' : 'bg-yellow-500'} flex items-center justify-center text-white font-bold text-xl">
                     ${person.name.charAt(0)}
                   </div>`
@@ -470,10 +480,11 @@ const MapView = ({ navigationState }: MapViewProps) => {
             <div className="card bg-base-200 shadow-xl max-w-2xl mx-auto">
               {primaryImage && (
                 <figure className="relative h-64">
-                  <img 
-                    src={primaryImage.url} 
+                  <ImageWithFallback
+                    imageId={primaryImage.id}
                     alt={selectedCaseData.name}
                     className="w-full h-full object-cover"
+                    fallbackType="portrait"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-base-200 via-transparent to-transparent" />
                   {primaryImage.credit && (
