@@ -129,7 +129,7 @@ const ArticleView = ({ article, onClose }: ArticleViewProps) => {
                         <>
                           <figure>
                             <img
-                              src={getPlaceholderImage(asset.id)}
+                              src={asset.url}
                               alt={asset.altText || asset.caption}
                               className="w-full h-64 object-cover"
                             />

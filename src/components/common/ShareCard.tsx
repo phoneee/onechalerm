@@ -129,7 +129,7 @@ const ShareCard = ({ title, subtitle, content, imageId, type, date, stats }: Sha
   }
   
   // Helper function to wrap text
-  const wrapText = (ctx: CanvasRenderingContext2D, text: string, x: number, y: number, maxWidth: number, lineHeight: number) => {
+  const wrapText = (ctx: CanvasRenderingContext2D, text: string, _x: number, _y: number, maxWidth: number, _lineHeight: number) => {
     const words = text.split(' ')
     const lines: string[] = []
     let currentLine = ''

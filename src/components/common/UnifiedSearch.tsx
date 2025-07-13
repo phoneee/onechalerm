@@ -121,19 +121,21 @@ const UnifiedSearch = ({ onResultClick }: UnifiedSearchProps) => {
     // Search locations from cross-references
     const uniqueLocations = new Map<string, typeof crossReferences[0]>()
     crossReferences.forEach(ref => {
-      if (ref.locationName.toLowerCase().includes(query)) {
-        uniqueLocations.set(ref.locationName, ref)
+      if (ref.locationName?.toLowerCase().includes(query)) {
+        uniqueLocations.set(ref.locationName!, ref)
       }
     })
 
     uniqueLocations.forEach((ref, locationName) => {
-      searchResults.push({
-        type: 'location',
-        id: `location-${ref.coordinates.join('-')}`,
-        title: locationName,
-        subtitle: `${ref.coordinates[1]}, ${ref.coordinates[0]}`,
-        icon: '📍'
-      })
+      if (ref.coordinates) {
+        searchResults.push({
+          type: 'location',
+          id: `location-${ref.coordinates.join('-')}`,
+          title: locationName,
+          subtitle: `${ref.coordinates[1]}, ${ref.coordinates[0]}`,
+          icon: '📍'
+        })
+      }
     })
 
     // Sort by relevance and date
@@ -226,7 +228,7 @@ const UnifiedSearch = ({ onResultClick }: UnifiedSearchProps) => {
                   {/* Search Results */}
                   {results.length > 0 && (
                     <div className="max-h-96 overflow-y-auto">
-                      {results.map((result, index) => (
+                      {results.map((result) => (
                         <button
                           key={`${result.type}-${result.id}`}
                           onClick={() => handleResultClick(result)}
