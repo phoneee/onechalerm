@@ -70,6 +70,33 @@
   @apply border-t-base-100;
 }
 
+/* Custom Map Markers */
+.custom-marker {
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+}
+
+.mapbox-popup {
+  max-width: 320px !important;
+}
+
+.mapbox-popup .mapboxgl-popup-content {
+  @apply bg-base-200 text-base-content rounded-lg shadow-xl p-0;
+}
+
+.mapbox-popup .mapboxgl-popup-close-button {
+  @apply text-base-content text-xl pr-2 pt-1;
+}
+
+.mapbox-popup .mapboxgl-popup-close-button:hover {
+  @apply bg-base-300;
+}
+
+.mapbox-popup .mapboxgl-popup-tip {
+  @apply border-t-base-200;
+}
+
 /* Scrollytelling Styles */
 .scroll-section {
   min-height: 100vh;

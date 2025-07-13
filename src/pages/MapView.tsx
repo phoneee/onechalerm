@@ -5,7 +5,7 @@ import { disappearanceCases } from '@/data/timeline-data'
 import { getReferencesByDisappearanceCase } from '@/data/cross-references'
 import { getArticleById } from '@/data/articles'
 import ArticleView from '@/components/ArticleView'
-import { getImagesByPerson, getImageById, getFallbackImage } from '@/data/real-images'
+import { getImagesByPerson, realImages } from '@/data/real-images'
 import type { NavigationState } from '@/App'
 
 // You'll need to add your Mapbox token here
@@ -21,6 +21,8 @@ const MapView = ({ navigationState }: MapViewProps) => {
   const [selectedCase, setSelectedCase] = useState<string | null>(null)
   const [mapError, setMapError] = useState(false)
   const [selectedArticle, setSelectedArticle] = useState<string | null>(null)
+  const markersRef = useRef<mapboxgl.Marker[]>([])
+  const popupsRef = useRef<mapboxgl.Popup[]>([])
 
   useEffect(() => {
     if (!mapContainer.current || map.current) return
@@ -122,6 +124,85 @@ const MapView = ({ navigationState }: MapViewProps) => {
           },
         })
 
+        // Create custom markers with popups for each person
+        disappearanceCases.forEach(person => {
+          const refs = getReferencesByDisappearanceCase(person.id)
+          const articleIds = refs.flatMap(r => r.articleIds || [])
+          const uniqueArticleIds = [...new Set(articleIds)]
+          const personImages = getImagesByPerson(person.id)
+          const primaryImage = personImages.find(img => img.tags.includes('portrait')) || personImages[0]
+          
+          // Create custom marker element
+          const el = document.createElement('div')
+          el.className = 'custom-marker'
+          el.innerHTML = `
+            <div class="relative cursor-pointer transform transition-transform hover:scale-110">
+              <div class="w-12 h-12 rounded-full border-2 ${person.status === 'found_dead' ? 'border-red-500' : 'border-yellow-500'} overflow-hidden shadow-lg">
+                ${primaryImage ? 
+                  `<img src="${primaryImage.url}" alt="${person.name}" class="w-full h-full object-cover" />` : 
+                  `<div class="w-full h-full ${person.status === 'found_dead' ? 'bg-red-500' : 'bg-yellow-500'} flex items-center justify-center text-white font-bold">
+                    ${person.name.charAt(0)}
+                  </div>`
+                }
+              </div>
+              <div class="absolute -bottom-1 -right-1 w-4 h-4 rounded-full ${person.status === 'found_dead' ? 'bg-red-600' : 'bg-yellow-600'} border-2 border-white"></div>
+            </div>
+          `
+          
+          // Create popup content
+          const popupContent = `
+            <div class="p-4 max-w-sm">
+              <div class="flex items-start gap-3 mb-3">
+                ${primaryImage ? 
+                  `<img src="${primaryImage.url}" alt="${person.name}" class="w-16 h-16 rounded-full object-cover" />` : 
+                  `<div class="w-16 h-16 rounded-full ${person.status === 'found_dead' ? 'bg-red-500' : 'bg-yellow-500'} flex items-center justify-center text-white font-bold text-xl">
+                    ${person.name.charAt(0)}
+                  </div>`
+                }
+                <div class="flex-1">
+                  <h3 class="font-bold text-lg">${person.name}</h3>
+                  <p class="text-sm opacity-75">${person.nameEn}</p>
+                  <div class="badge ${person.status === 'found_dead' ? 'badge-error' : 'badge-warning'} badge-sm mt-1">
+                    ${person.status === 'missing' ? 'สูญหาย' : 'พบศพ'}
+                  </div>
+                </div>
+              </div>
+              <div class="space-y-2 text-sm">
+                <div class="flex justify-between">
+                  <span class="opacity-75">วันที่หายตัว:</span>
+                  <span>${person.date}</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="opacity-75">สถานที่:</span>
+                  <span>${person.location}</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="opacity-75">อายุ:</span>
+                  <span>${person.age} ปี</span>
+                </div>
+              </div>
+              <button class="btn btn-primary btn-sm w-full mt-3" onclick="window.dispatchEvent(new CustomEvent('selectCase', { detail: '${person.id}' }))">
+                ดูรายละเอียด
+              </button>
+            </div>
+          `
+          
+          // Create popup
+          const popup = new mapboxgl.Popup({
+            offset: 25,
+            className: 'mapbox-popup'
+          }).setHTML(popupContent)
+          
+          // Create marker
+          const marker = new mapboxgl.Marker(el)
+            .setLngLat(person.coordinates)
+            .setPopup(popup)
+            .addTo(map.current!)
+          
+          markersRef.current.push(marker)
+          popupsRef.current.push(popup)
+        })
+        
         // Add click event
         map.current.on('click', 'disappearance-circles', (e) => {
           if (!e.features || !e.features[0]) return
@@ -282,14 +363,23 @@ const MapView = ({ navigationState }: MapViewProps) => {
       setMapError(true)
     }
 
+    // Listen for custom select case event
+    const handleSelectCase = (e: CustomEvent) => {
+      setSelectedCase(e.detail)
+    }
+    window.addEventListener('selectCase', handleSelectCase as EventListener)
+    
     // Cleanup
     return () => {
+      window.removeEventListener('selectCase', handleSelectCase as EventListener)
+      markersRef.current.forEach(marker => marker.remove())
+      popupsRef.current.forEach(popup => popup.remove())
       if (map.current) {
         map.current.remove()
         map.current = null
       }
     }
-  }, [])
+  }, [navigationState?.coordinates])
 
   const selectedCaseData = selectedCase 
     ? disappearanceCases.find(c => c.id === selectedCase)
@@ -364,7 +454,11 @@ const MapView = ({ navigationState }: MapViewProps) => {
         </motion.div>
 
         {/* Selected Case Info */}
-        {selectedCaseData && (
+        {selectedCaseData && (() => {
+          const personImages = getImagesByPerson(selectedCaseData.id)
+          const primaryImage = personImages.find(img => img.tags.includes('portrait')) || personImages[0]
+          
+          return (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -372,6 +466,21 @@ const MapView = ({ navigationState }: MapViewProps) => {
             className="mt-8"
           >
             <div className="card bg-base-200 shadow-xl max-w-2xl mx-auto">
+              {primaryImage && (
+                <figure className="relative h-64">
+                  <img 
+                    src={primaryImage.url} 
+                    alt={selectedCaseData.name}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-base-200 via-transparent to-transparent" />
+                  {primaryImage.credit && (
+                    <div className="absolute bottom-2 right-2 text-xs opacity-50">
+                      © {primaryImage.credit}
+                    </div>
+                  )}
+                </figure>
+              )}
               <div className="card-body">
                 <div className="flex justify-between items-start">
                   <h3 className="card-title text-2xl">{selectedCaseData.name}</h3>
@@ -455,7 +564,8 @@ const MapView = ({ navigationState }: MapViewProps) => {
               </div>
             </div>
           </motion.div>
-        )}
+          )
+        })()}
 
         {/* Stats by Country */}
         <motion.div
