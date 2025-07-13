@@ -29,6 +29,9 @@ const MapView = ({ navigationState }: MapViewProps) => {
   useEffect(() => {
     if (!mapContainer.current || map.current) return
 
+    console.log('Initializing map with token:', mapboxgl.accessToken ? 'Token exists' : 'No token')
+    console.log('Container element:', mapContainer.current)
+
     try {
       // Initialize map
       map.current = new mapboxgl.Map({
@@ -368,10 +371,12 @@ const MapView = ({ navigationState }: MapViewProps) => {
         })
       })
 
-      map.current.on('error', () => {
+      map.current.on('error', (e) => {
+        console.error('Map error:', e)
         setMapError(true)
       })
     } catch (error) {
+      console.error('Map initialization error:', error)
       setMapError(true)
     }
 
@@ -425,6 +430,7 @@ const MapView = ({ navigationState }: MapViewProps) => {
             <div 
               ref={mapContainer} 
               className="w-full h-[600px]"
+              style={{ position: 'relative' }}
             />
             
             {mapError && (
